@@ -6,13 +6,37 @@ const Path = require("path");
 const Loki = require("lokijs");
 const index_1 = require("./routes/index");
 const user_1 = require("./routes/user");
-//initializing in-memory database
+//initializing in-memory database and collections
 var inMemoryDb = new Loki('data.json');
+var products = inMemoryDb.addCollection('products');
+var availabilities = inMemoryDb.addCollection('availabilities');
+//filling collections with dummy data
+for (let i = 0; i < 100; ++i) {
+    products.insert({
+        id: i,
+        name: `Product-${i}`
+    });
+}
+var test = products.get(1);
+console.log(test);
+//const now = new Date().getTime();
+//for (let day = 0; day > 180; ++day) { //For every day in the last 6 months, set each product availability
+//    const randomProduct = products.get(Math.random() * 100)
+//    for (let product in products.where(() => true) as Product[]) {
+//        availabilities.insert({
+//            id: 8.64e+7,
+//            productId: product.name,
+//            productName: products.get(0).name,
+//            date: new Date(new Date().setTime(now - day * 8.64e+7)),
+//            inventoryLevel: 0
+//        } as Availability)
+//    }
+//}
 //initializing MVC app
 var app = Express();
-// view engine setup
-app.set('views', Path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+//// view engine setup
+//app.set('views', Path.join(__dirname, 'views'));
+//app.set('view engine', 'pug');
 app.use(Express.static(Path.join(__dirname, 'public')));
 app.use('/', index_1.default);
 app.use('/users', user_1.default);

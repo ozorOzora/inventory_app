@@ -3,11 +3,41 @@ import * as Express from 'express';
 import * as Path from 'path';
 import * as Loki from 'lokijs';
 
+import { Product } from "./BO/product";
+import { Availability } from "./BO/availability";
+
 import routes from './routes/index';
 import users from './routes/user';
 
-//initializing in-memory database
+
+
+//initializing in-memory database and collections
 var inMemoryDb = new Loki('data.json');
+var productsCol = inMemoryDb.addCollection('products');
+var availabilitiesCol = inMemoryDb.addCollection('availabilities');
+
+//filling collections with dummy data
+for (let i = 1; i < 101; ++i) {
+    productsCol.insert({
+        id: i,
+        name: `Product-${i}`
+    } as Product)
+}
+const products: Product[] = productsCol.where(() => true);
+const now = new Date().getTime();
+for (let d = 0; d > 180; ++d) { //For every day in the last 6 months, set each product availability
+
+    for (let p of products) {
+        availabilitiesCol.insert({
+            productId: p.id,
+            productName: p.name,
+            date: new Date(new Date().setTime(now - d * 8.64e+7)),
+            inventoryLevel: 0
+        } as Availability)
+    }
+}
+
+
 
 //initializing MVC app
 var app = Express();
