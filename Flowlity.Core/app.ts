@@ -29,7 +29,7 @@ for (let d = 0; d > 180; ++d) { //For every day in the last 6 months, set each p
             productId: p.id,
             productName: p.name,
             date: new Date(new Date().setTime(now - d * 8.64e+7)),
-            inventoryLevel: 0
+            inventoryLevel: Math.floor(Math.random()*100)
         } as Availability)
     }
 }
