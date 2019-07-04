@@ -5,8 +5,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const express = require("express");
 const router = express.Router();
-router.get('/', (req, res) => {
-    res.send("respond with a resource");
-});
-exports.default = router;
+module.exports = function (collection) {
+    router.get('/', (req, res) => {
+        res.send(collection.where(() => true));
+    });
+    return router;
+};
 //# sourceMappingURL=user.js.map

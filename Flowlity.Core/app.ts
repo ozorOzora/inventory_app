@@ -1,29 +1,26 @@
-﻿import * as Debug from 'debug';
-import * as Express from 'express';
-import * as Path from 'path';
+﻿//initializing in-memory database and collections
 import * as Loki from 'lokijs';
-
 import { Product } from "./BO/product";
 import { Availability } from "./BO/availability";
 
-import routes from './routes/index';
-import users from './routes/user';
-
-
-
-//initializing in-memory database and collections
 var inMemoryDb = new Loki('data.json');
+
 var productsCol = inMemoryDb.addCollection('products');
+var productRepository = require('./DAL/product.repository')(productsCol);
+var productManager = require('./BLL/product.manager')(productRepository);
+var productController = require('./Controller/product.controller')(productManager);
+
 var availabilitiesCol = inMemoryDb.addCollection('availabilities');
 
-//filling collections with dummy data
+
+// filling collections with dummy data
 for (let i = 1; i < 101; ++i) {
-    productsCol.insert({
+    productManager.create({
         id: i,
         name: `Product-${i}`
     } as Product)
 }
-const products: Product[] = productsCol.where(() => true);
+const products: Product[] = productManager.findAll();
 const now = new Date().getTime();
 for (let d = 0; d > 180; ++d) { //For every day in the last 6 months, set each product availability
 
@@ -38,18 +35,26 @@ for (let d = 0; d > 180; ++d) { //For every day in the last 6 months, set each p
 }
 
 
+import * as Debug from 'debug';
+import * as Express from 'express';
+import * as Path from 'path';
+
+
+import routes from './routes/index';
+
 
 //initializing MVC app
 var app = Express();
 
 //// view engine setup
-//app.set('views', Path.join(__dirname, 'views'));
-//app.set('view engine', 'pug');
+app.set('views', Path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
 app.use(Express.static(Path.join(__dirname, 'public')));
 
+app.use('/products', productController);
 app.use('/', routes);
-app.use('/users', users);
+//app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

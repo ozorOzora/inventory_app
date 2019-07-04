@@ -1,45 +1,45 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Debug = require("debug");
-const Express = require("express");
-const Path = require("path");
-const Loki = require("lokijs");
-const index_1 = require("./routes/index");
-const user_1 = require("./routes/user");
 //initializing in-memory database and collections
+const Loki = require("lokijs");
 var inMemoryDb = new Loki('data.json');
-var products = inMemoryDb.addCollection('products');
-var availabilities = inMemoryDb.addCollection('availabilities');
-//filling collections with dummy data
-for (let i = 0; i < 100; ++i) {
-    products.insert({
+var productsCol = inMemoryDb.addCollection('products');
+var productRepository = require('./DAL/product.repository')(productsCol);
+var productManager = require('./BLL/product.manager')(productRepository);
+var productController = require('./Controller/product.controller')(productManager);
+var availabilitiesCol = inMemoryDb.addCollection('availabilities');
+// filling collections with dummy data
+for (let i = 1; i < 101; ++i) {
+    productManager.create({
         id: i,
         name: `Product-${i}`
     });
 }
-var test = products.get(1);
-console.log(test);
-//const now = new Date().getTime();
-//for (let day = 0; day > 180; ++day) { //For every day in the last 6 months, set each product availability
-//    const randomProduct = products.get(Math.random() * 100)
-//    for (let product in products.where(() => true) as Product[]) {
-//        availabilities.insert({
-//            id: 8.64e+7,
-//            productId: product.name,
-//            productName: products.get(0).name,
-//            date: new Date(new Date().setTime(now - day * 8.64e+7)),
-//            inventoryLevel: 0
-//        } as Availability)
-//    }
-//}
+const products = productManager.findAll();
+const now = new Date().getTime();
+for (let d = 0; d > 180; ++d) { //For every day in the last 6 months, set each product availability
+    for (let p of products) {
+        availabilitiesCol.insert({
+            productId: p.id,
+            productName: p.name,
+            date: new Date(new Date().setTime(now - d * 8.64e+7)),
+            inventoryLevel: 0
+        });
+    }
+}
+const Debug = require("debug");
+const Express = require("express");
+const Path = require("path");
+const index_1 = require("./routes/index");
 //initializing MVC app
 var app = Express();
 //// view engine setup
-//app.set('views', Path.join(__dirname, 'views'));
-//app.set('view engine', 'pug');
+app.set('views', Path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 app.use(Express.static(Path.join(__dirname, 'public')));
+app.use('/products', productController);
 app.use('/', index_1.default);
-app.use('/users', user_1.default);
+//app.use('/users', users);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
