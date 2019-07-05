@@ -1,0 +1,19 @@
+{
+  "extends": "../tsconfig",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outFile": "../build/core",
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5"
+  },
+  "include": [
+    "server/**/*.ts"
+  ],
+  "exclude": [
+    "./app.ts"
+  ]
+}
