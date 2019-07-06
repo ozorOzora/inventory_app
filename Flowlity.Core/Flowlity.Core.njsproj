@@ -16,7 +16,8 @@
     <ProjectGuid>a19895da-0daf-4a51-a0ee-989023dbaa14</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>server\app.js</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -37,72 +38,28 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="client\src\app\app.component.ts" />
-    <TypeScriptCompile Include="client\src\app\app.module.ts" />
-    <TypeScriptCompile Include="client\src\app\components\availability-chart\availability-chart.component.ts" />
-    <TypeScriptCompile Include="client\src\app\components\availability-table\availability-table.component.ts" />
-    <TypeScriptCompile Include="client\src\app\components\product-selector\product-selector.component.ts" />
-    <TypeScriptCompile Include="client\src\app\models\product.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="client\src\app\services\availability.service.ts" />
-    <TypeScriptCompile Include="client\src\app\services\product.service.ts" />
-    <TypeScriptCompile Include="client\src\environments\environment.prod.ts" />
-    <TypeScriptCompile Include="client\src\environments\environment.ts" />
-    <TypeScriptCompile Include="client\src\main.ts" />
-    <TypeScriptCompile Include="client\src\polyfills.ts" />
-    <Content Include="client\.gitignore" />
-    <Content Include="client\angular.json" />
-    <Content Include="client\browserslist" />
-    <Content Include="client\README.md" />
-    <Content Include="client\src\app\app.component.html">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="client\src\app\components\availability-chart\availability-chart.component.css" />
-    <Content Include="client\src\app\components\availability-chart\availability-chart.component.html" />
-    <Content Include="client\src\app\components\availability-table\availability-table.component.css" />
-    <Content Include="client\src\app\components\availability-table\availability-table.component.html" />
-    <Content Include="client\src\app\components\product-selector\product-selector.component.css" />
-    <Content Include="client\src\app\components\product-selector\product-selector.component.html" />
-    <Content Include="client\src\assets\.gitkeep" />
-    <Content Include="client\src\favicon.ico" />
-    <Content Include="client\src\index.html" />
-    <Content Include="client\src\styles.css" />
-    <Content Include="client\tsconfig.client.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <Content Include="server\views\error.pug" />
-    <Content Include="server\views\index.pug" />
-    <Content Include="server\views\layout.pug" />
+    <Content Include="views\error.pug" />
+    <Content Include="views\index.pug" />
+    <Content Include="views\layout.pug" />
     <Content Include="tsconfig.json" />
-    <TypeScriptCompile Include="server\app.ts" />
-    <TypeScriptCompile Include="server\BLL\product.manager.ts" />
-    <TypeScriptCompile Include="server\BO\availability.ts" />
-    <TypeScriptCompile Include="server\BO\product.ts" />
-    <TypeScriptCompile Include="server\Controller\product.controller.ts" />
-    <TypeScriptCompile Include="server\DAL\product.repository.ts" />
-    <TypeScriptCompile Include="server\routes\index.ts" />
-    <TypeScriptCompile Include="server\routes\product.ts" />
+    <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="BLL\product.manager.ts" />
+    <TypeScriptCompile Include="BO\availability.ts" />
+    <TypeScriptCompile Include="BO\product.ts" />
+    <TypeScriptCompile Include="Controller\product.controller.ts" />
+    <TypeScriptCompile Include="DAL\product.repository.ts" />
+    <TypeScriptCompile Include="routes\index.ts" />
+    <TypeScriptCompile Include="routes\product.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="client\" />
-    <Folder Include="client\src\" />
-    <Folder Include="client\src\app\" />
-    <Folder Include="client\src\app\components\" />
-    <Folder Include="client\src\app\components\availability-chart\" />
-    <Folder Include="client\src\app\components\availability-table\" />
-    <Folder Include="client\src\app\components\product-selector\" />
-    <Folder Include="client\src\app\models\" />
-    <Folder Include="client\src\app\services\" />
-    <Folder Include="client\src\assets\" />
-    <Folder Include="client\src\environments\" />
-    <Folder Include="server\" />
-    <Folder Include="server\BLL\" />
-    <Folder Include="server\BO\" />
-    <Folder Include="server\Controller\" />
-    <Folder Include="server\DAL\" />
-    <Folder Include="server\routes\" />
-    <Folder Include="server\views\" />
+    <Folder Include="BLL\" />
+    <Folder Include="BO\" />
+    <Folder Include="Controller\" />
+    <Folder Include="DAL\" />
+    <Folder Include="routes\" />
+    <Folder Include="views\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

@@ -9,10 +9,10 @@
     ]
   },
   "include": [
-    "server/**/*.ts"
+    "../Flowlity.GUI/app.ts",
+    "./**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "client/*"
+    "node_modules"
   ]
 }
