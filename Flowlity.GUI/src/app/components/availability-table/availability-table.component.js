@@ -6,7 +6,8 @@ var AvailabilityTableComponent = /** @class */ (function () {
     function AvailabilityTableComponent() {
         this.displayedColumns = ['name', 'inventory_level', 'date'];
     }
-    AvailabilityTableComponent.prototype.ngOnInit = function () {
+    AvailabilityTableComponent.prototype.ngOnChanges = function () {
+        console.log(this.availabilities);
     };
     tslib_1.__decorate([
         core_1.Input()

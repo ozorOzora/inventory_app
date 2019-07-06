@@ -15,7 +15,9 @@ var productManager = require('../Flowlity.Core/BLL/product.manager')(productRepo
 var productController = require('../Flowlity.Core/Controller/product.controller')(productManager);
 
 var availabilitiesCol = inMemoryDb.addCollection('availabilities');
-
+var availabilityRepository = require('../Flowlity.Core/DAL/availability.repository')(availabilitiesCol);
+var availabilityManager = require('../Flowlity.Core/BLL/availability.manager')(availabilityRepository);
+var availabilityController = require('../Flowlity.Core/Controller/availability.controller')(availabilityManager);
 
 // filling collections with dummy data
 for (let i = 1; i < 101; ++i) {
@@ -26,7 +28,7 @@ for (let i = 1; i < 101; ++i) {
 }
 const products: Product[] = productManager.findAll();
 const now = new Date().getTime();
-for (let d = 0; d > 180; ++d) { //For every day in the last 6 months, set each product availability
+for (let d = 0; d < 180; ++d) { //For every day in the last 6 months, set each product availability
 
     for (let p of products) {
         availabilitiesCol.insert({
@@ -37,6 +39,8 @@ for (let d = 0; d > 180; ++d) { //For every day in the last 6 months, set each p
         } as Availability)
     }
 }
+
+var test = availabilitiesCol.find({ productId: 2 });
 
 
 
@@ -52,6 +56,7 @@ app.set('view engine', 'pug');
 app.use(Express.static(Path.join(__dirname, 'wwwroot')));
 
 app.use('/products', productController);
+app.use('/availabilities', availabilityController);
 app.use('/', routes);
 //app.use('/users', users);
 

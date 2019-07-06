@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatSelectChange } from "@angular/material"
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
@@ -9,6 +9,7 @@ import { Product } from '../../models/product';
     styleUrls: ['./product-selector.component.css']
 })
 export class ProductSelectorComponent implements OnInit {
+    @Output() productSelected: EventEmitter<Product> = new EventEmitter()
     products: Product[];
     constructor(
         private _productService: ProductService
@@ -20,8 +21,9 @@ export class ProductSelectorComponent implements OnInit {
         )
     }
 
-    productSelected(selectedChange: MatSelectChange) {
-
+    selectProduct(selectedChange: MatSelectChange) {
+        console.log(selectedChange.value);
+        this.productSelected.emit(selectedChange.value);
     }
 
 }

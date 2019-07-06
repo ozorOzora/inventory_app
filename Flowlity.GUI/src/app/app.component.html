@@ -5,6 +5,6 @@
     </h1>
 </div>
 
-<app-product-selector></app-product-selector>
-<app-availability-chart></app-availability-chart>
-<app-availability-table></app-availability-table>
+<app-product-selector (productSelected)="getAvailabilities($event)"></app-product-selector>
+<app-availability-chart [availabilities]="availabilities"></app-availability-chart>
+<app-availability-table [availabilities]="availabilities"></app-availability-table>

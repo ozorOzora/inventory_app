@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "    <!--The content below is only a placeholder and can be replaced.-->\r\n<div style=\"text-align:center\">\r\n    <h1>\r\n        Flowlity\r\n    </h1>\r\n</div>\r\n\r\n<app-product-selector></app-product-selector>\r\n<app-availability-chart></app-availability-chart>\r\n<app-availability-table></app-availability-table>"
+module.exports = "    <!--The content below is only a placeholder and can be replaced.-->\r\n<div style=\"text-align:center\">\r\n    <h1>\r\n        Flowlity\r\n    </h1>\r\n</div>\r\n\r\n<app-product-selector (productSelected)=\"getAvailabilities($event)\"></app-product-selector>\r\n<app-availability-chart [availabilities]=\"availabilities\"></app-availability-chart>\r\n<app-availability-table [availabilities]=\"availabilities\"></app-availability-table>"
 
 /***/ }),
 
@@ -52,7 +52,7 @@ module.exports = "<p>availability-chart works!</p>\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<table mat-table [dataSource]=\"dataSource\" class=\"mat-elevation-z8\">\r\n\r\n    <!--- Note that these columns can be defined in any order.\r\n          The actual rendered columns are set as a property on the row definition\" -->\r\n\r\n    <!-- Name Column -->\r\n    <ng-container matColumnDef=\"name\">\r\n        <th mat-header-cell *matHeaderCellDef> Name </th>\r\n        <td mat-cell *matCellDef=\"let element\"> {{element.name}} </td>\r\n    </ng-container>\r\n\r\n    <!-- Weight Column -->\r\n    <ng-container matColumnDef=\"inventory_level\">\r\n        <th mat-header-cell *matHeaderCellDef> Inventory level </th>\r\n        <td mat-cell *matCellDef=\"let element\"> {{element.weight}} </td>\r\n    </ng-container>\r\n\r\n    <!-- Symbol Column -->\r\n    <ng-container matColumnDef=\"date\">\r\n        <th mat-header-cell *matHeaderCellDef> Date </th>\r\n        <td mat-cell *matCellDef=\"let element\"> {{element.symbol}} </td>\r\n    </ng-container>\r\n\r\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n</table>"
+module.exports = "<table mat-table [dataSource]=\"availabilities\">\r\n\r\n    <!--- Note that these columns can be defined in any order.\r\n          The actual rendered columns are set as a property on the row definition\" -->\r\n\r\n    <!-- Name Column -->\r\n    <ng-container matColumnDef=\"name\">\r\n        <th mat-header-cell *matHeaderCellDef> Name </th>\r\n        <td mat-cell *matCellDef=\"let availability\"> {{availability.productName}} </td>\r\n    </ng-container>\r\n\r\n    <!-- Weight Column -->\r\n    <ng-container matColumnDef=\"inventory_level\">\r\n        <th mat-header-cell *matHeaderCellDef> Inventory level </th>\r\n        <td mat-cell *matCellDef=\"let availability\"> {{availability.inventoryLevel}} </td>\r\n    </ng-container>\r\n\r\n    <!-- Symbol Column -->\r\n    <ng-container matColumnDef=\"date\">\r\n        <th mat-header-cell *matHeaderCellDef> Date </th>\r\n        <td mat-cell *matCellDef=\"let availability\"> {{availability.date}} </td>\r\n    </ng-container>\r\n\r\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n</table>"
 
 /***/ }),
 
@@ -63,7 +63,7 @@ module.exports = "<table mat-table [dataSource]=\"dataSource\" class=\"mat-eleva
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-form-field>\r\n    <mat-label>Select a product</mat-label>\r\n    <mat-select (selectionChange)=\"productSelected\">\r\n        <mat-option *ngFor=\"let product of products\" [value]=\"product.id\">\r\n            {{product.name}}\r\n        </mat-option>\r\n    </mat-select>\r\n</mat-form-field>"
+module.exports = "<mat-form-field>\r\n    <mat-label>Select a product</mat-label>\r\n    <mat-select (selectionChange)=\"selectProduct($event)\">\r\n        <mat-option *ngFor=\"let product of products\" [value]=\"product\">\r\n            {{product.name}}\r\n        </mat-option>\r\n    </mat-select>\r\n</mat-form-field>"
 
 /***/ }),
 
@@ -79,9 +79,23 @@ module.exports = "<mat-form-field>\r\n    <mat-label>Select a product</mat-label
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var availability_service_1 = __webpack_require__(/*! ./services/availability.service */ "./src/app/services/availability.service.ts");
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(_availabilityService) {
+        this._availabilityService = _availabilityService;
+        this.availabilities = [];
     }
+    AppComponent.prototype.getAvailabilities = function (product) {
+        var _this = this;
+        this._availabilityService.findAll(product.id)
+            .subscribe(function (availabilities) {
+            console.log(availabilities);
+            _this.availabilities = availabilities;
+        });
+    };
+    AppComponent.ctorParameters = function () { return [
+        { type: availability_service_1.AvailabilityService }
+    ]; };
     AppComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'app-root',
@@ -172,6 +186,9 @@ var AvailabilityChartComponent = /** @class */ (function () {
     }
     AvailabilityChartComponent.prototype.ngOnInit = function () {
     };
+    tslib_1.__decorate([
+        core_1.Input()
+    ], AvailabilityChartComponent.prototype, "availabilities", void 0);
     AvailabilityChartComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'app-availability-chart',
@@ -213,7 +230,8 @@ var AvailabilityTableComponent = /** @class */ (function () {
     function AvailabilityTableComponent() {
         this.displayedColumns = ['name', 'inventory_level', 'date'];
     }
-    AvailabilityTableComponent.prototype.ngOnInit = function () {
+    AvailabilityTableComponent.prototype.ngOnChanges = function () {
+        console.log(this.availabilities);
     };
     tslib_1.__decorate([
         core_1.Input()
@@ -259,16 +277,22 @@ var product_service_1 = __webpack_require__(/*! ../../services/product.service *
 var ProductSelectorComponent = /** @class */ (function () {
     function ProductSelectorComponent(_productService) {
         this._productService = _productService;
+        this.productSelected = new core_1.EventEmitter();
     }
     ProductSelectorComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._productService.findAll().subscribe(function (products) { _this.products = products; });
     };
-    ProductSelectorComponent.prototype.productSelected = function (selectedChange) {
+    ProductSelectorComponent.prototype.selectProduct = function (selectedChange) {
+        console.log(selectedChange.value);
+        this.productSelected.emit(selectedChange.value);
     };
     ProductSelectorComponent.ctorParameters = function () { return [
         { type: product_service_1.ProductService }
     ]; };
+    tslib_1.__decorate([
+        core_1.Output()
+    ], ProductSelectorComponent.prototype, "productSelected", void 0);
     ProductSelectorComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'app-product-selector',
@@ -279,6 +303,41 @@ var ProductSelectorComponent = /** @class */ (function () {
     return ProductSelectorComponent;
 }());
 exports.ProductSelectorComponent = ProductSelectorComponent;
+
+
+/***/ }),
+
+/***/ "./src/app/services/availability.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/services/availability.service.ts ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var http_1 = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var AvailabilityService = /** @class */ (function () {
+    function AvailabilityService(_http) {
+        this._http = _http;
+    }
+    AvailabilityService.prototype.findAll = function (productId) {
+        return this._http.get("/availabilities/" + productId);
+    };
+    AvailabilityService.ctorParameters = function () { return [
+        { type: http_1.HttpClient }
+    ]; };
+    AvailabilityService = tslib_1.__decorate([
+        core_1.Injectable({
+            providedIn: 'root'
+        })
+    ], AvailabilityService);
+    return AvailabilityService;
+}());
+exports.AvailabilityService = AvailabilityService;
 
 
 /***/ }),

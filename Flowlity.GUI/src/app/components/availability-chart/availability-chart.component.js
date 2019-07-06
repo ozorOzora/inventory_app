@@ -7,6 +7,9 @@ var AvailabilityChartComponent = /** @class */ (function () {
     }
     AvailabilityChartComponent.prototype.ngOnInit = function () {
     };
+    tslib_1.__decorate([
+        core_1.Input()
+    ], AvailabilityChartComponent.prototype, "availabilities", void 0);
     AvailabilityChartComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'app-availability-chart',

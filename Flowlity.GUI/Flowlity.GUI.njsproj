@@ -47,8 +47,6 @@
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="src\app\app.component.html" />
-    <Content Include="src\app\app.component.js.map" />
-    <Content Include="src\app\app.module.js.map" />
     <Content Include="src\app\components\availability-chart\availability-chart.component.css" />
     <Content Include="src\app\components\availability-chart\availability-chart.component.html" />
     <Content Include="src\app\components\availability-table\availability-table.component.css" />
@@ -114,8 +112,6 @@
     <TypeScriptCompile Include="src\polyfills.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\app\app.component.js" />
-    <Compile Include="src\app\app.module.js" />
     <Compile Include="src\environments\environment.js" />
     <Compile Include="src\environments\environment.prod.js" />
     <Compile Include="src\main.js" />
