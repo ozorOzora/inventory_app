@@ -6,6 +6,7 @@ var animations_1 = require("@angular/platform-browser/animations");
 var http_1 = require("@angular/common/http");
 var core_1 = require("@angular/core");
 var material_1 = require("@angular/material");
+var ng_apexcharts_1 = require("ng-apexcharts");
 var app_component_1 = require("./app.component");
 var product_selector_component_1 = require("./components/product-selector/product-selector.component");
 var availability_table_component_1 = require("./components/availability-table/availability-table.component");
@@ -26,7 +27,8 @@ var AppModule = /** @class */ (function () {
                 animations_1.BrowserAnimationsModule,
                 http_1.HttpClientModule,
                 material_1.MatSelectModule,
-                material_1.MatTableModule
+                material_1.MatTableModule,
+                ng_apexcharts_1.NgApexchartsModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

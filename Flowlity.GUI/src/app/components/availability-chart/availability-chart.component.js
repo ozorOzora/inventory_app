@@ -6,6 +6,52 @@ var AvailabilityChartComponent = /** @class */ (function () {
     function AvailabilityChartComponent() {
     }
     AvailabilityChartComponent.prototype.ngOnInit = function () {
+        this.chart = {
+            type: 'area',
+            stacked: false,
+            height: 350,
+            zoom: {
+                type: 'x',
+                enabled: true
+            },
+            toolbar: {
+                autoSelected: 'zoom'
+            }
+        };
+        this.dataLabels = {
+            enabled: false
+        };
+        this.xaxis = {
+            type: "datetime"
+        };
+        this.fill = {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                inverseColors: false,
+                opacityFrom: 0.5,
+                opacityTo: 0,
+                stops: [0, 100]
+            }
+        };
+        this.yaxis = {
+            min: 0,
+            max: 100,
+            title: {
+                text: "Inventory level"
+            }
+        };
+    };
+    AvailabilityChartComponent.prototype.ngOnChanges = function () {
+        this.series = [{
+                name: "Inventory level",
+                data: this.availabilities.map(function (availability) {
+                    return {
+                        x: new Date(availability.date).getTime(),
+                        y: availability.inventoryLevel
+                    };
+                })
+            }];
     };
     tslib_1.__decorate([
         core_1.Input()

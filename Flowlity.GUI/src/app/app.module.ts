@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatSelectModule, MatTableModule } from '@angular/material';
-
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { AppComponent } from './app.component';
 import { ProductSelectorComponent } from './components/product-selector/product-selector.component';
@@ -22,7 +22,8 @@ import { AvailabilityChartComponent } from './components/availability-chart/avai
       BrowserAnimationsModule,
       HttpClientModule,
       MatSelectModule,
-      MatTableModule
+      MatTableModule,
+      NgApexchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

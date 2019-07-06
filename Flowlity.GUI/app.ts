@@ -28,14 +28,14 @@ for (let i = 1; i < 101; ++i) {
 }
 const products: Product[] = productManager.findAll();
 const now = new Date().getTime();
-for (let d = 0; d < 180; ++d) { //For every day in the last 6 months, set each product availability
+for (let d = 0; d < 90; ++d) { //For every day in the last 3 months, set each product availability
 
     for (let p of products) {
         availabilitiesCol.insert({
             productId: p.id,
             productName: p.name,
             date: new Date(new Date().setTime(now - d * 8.64e+7)),
-            inventoryLevel: Math.floor(Math.random()*100)
+            inventoryLevel: Math.floor(Math.random()*60)+20
         } as Availability)
     }
 }

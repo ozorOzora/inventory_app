@@ -26,7 +26,7 @@ for (var i = 1; i < 101; ++i) {
 }
 var products = productManager.findAll();
 var now = new Date().getTime();
-for (var d = 0; d < 180; ++d) { //For every day in the last 6 months, set each product availability
+for (var d = 0; d < 90; ++d) { //For every day in the last 3 months, set each product availability
     try {
         for (var products_1 = tslib_1.__values(products), products_1_1 = products_1.next(); !products_1_1.done; products_1_1 = products_1.next()) {
             var p = products_1_1.value;
@@ -34,7 +34,7 @@ for (var d = 0; d < 180; ++d) { //For every day in the last 6 months, set each p
                 productId: p.id,
                 productName: p.name,
                 date: new Date(new Date().setTime(now - d * 8.64e+7)),
-                inventoryLevel: Math.floor(Math.random() * 100)
+                inventoryLevel: Math.floor(Math.random() * 60) + 20
             });
         }
     }

@@ -41,7 +41,7 @@ module.exports = "    <!--The content below is only a placeholder and can be rep
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>availability-chart works!</p>\n"
+module.exports = "<apx-chart [series]=\"series\"\r\n           [title]=\"title\"\r\n           [chart]=\"chart\"\r\n           [colors]=\"['black']\"\r\n           [fill]=\"fill\"\r\n           [dataLabels]=\"dataLabels\"\r\n           [xaxis]=\"xaxis\"\r\n           [yaxis]=\"yaxis\"></apx-chart>"
 
 /***/ }),
 
@@ -125,6 +125,7 @@ var animations_1 = __webpack_require__(/*! @angular/platform-browser/animations 
 var http_1 = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var ng_apexcharts_1 = __webpack_require__(/*! ng-apexcharts */ "./node_modules/ng-apexcharts/fesm5/ng-apexcharts.js");
 var app_component_1 = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 var product_selector_component_1 = __webpack_require__(/*! ./components/product-selector/product-selector.component */ "./src/app/components/product-selector/product-selector.component.ts");
 var availability_table_component_1 = __webpack_require__(/*! ./components/availability-table/availability-table.component */ "./src/app/components/availability-table/availability-table.component.ts");
@@ -145,7 +146,8 @@ var AppModule = /** @class */ (function () {
                 animations_1.BrowserAnimationsModule,
                 http_1.HttpClientModule,
                 material_1.MatSelectModule,
-                material_1.MatTableModule
+                material_1.MatTableModule,
+                ng_apexcharts_1.NgApexchartsModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]
@@ -185,6 +187,52 @@ var AvailabilityChartComponent = /** @class */ (function () {
     function AvailabilityChartComponent() {
     }
     AvailabilityChartComponent.prototype.ngOnInit = function () {
+        this.chart = {
+            type: 'area',
+            stacked: false,
+            height: 350,
+            zoom: {
+                type: 'x',
+                enabled: true
+            },
+            toolbar: {
+                autoSelected: 'zoom'
+            }
+        };
+        this.dataLabels = {
+            enabled: false
+        };
+        this.xaxis = {
+            type: "datetime"
+        };
+        this.fill = {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                inverseColors: false,
+                opacityFrom: 0.5,
+                opacityTo: 0,
+                stops: [0, 100]
+            }
+        };
+        this.yaxis = {
+            min: 0,
+            max: 100,
+            title: {
+                text: "Inventory level"
+            }
+        };
+    };
+    AvailabilityChartComponent.prototype.ngOnChanges = function () {
+        this.series = [{
+                name: "Inventory level",
+                data: this.availabilities.map(function (availability) {
+                    return {
+                        x: new Date(availability.date).getTime(),
+                        y: availability.inventoryLevel
+                    };
+                })
+            }];
     };
     tslib_1.__decorate([
         core_1.Input()
