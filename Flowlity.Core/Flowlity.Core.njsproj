@@ -37,6 +37,12 @@
   <ItemGroup>
     <TypeScriptCompile Include="client\src\app\app.component.ts" />
     <TypeScriptCompile Include="client\src\app\app.module.ts" />
+    <TypeScriptCompile Include="client\src\app\components\availability-chart\availability-chart.component.spec.ts" />
+    <TypeScriptCompile Include="client\src\app\components\availability-chart\availability-chart.component.ts" />
+    <TypeScriptCompile Include="client\src\app\components\availability-table\availability-table.component.spec.ts" />
+    <TypeScriptCompile Include="client\src\app\components\availability-table\availability-table.component.ts" />
+    <TypeScriptCompile Include="client\src\app\components\product-selector\product-selector.component.spec.ts" />
+    <TypeScriptCompile Include="client\src\app\components\product-selector\product-selector.component.ts" />
     <TypeScriptCompile Include="client\src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="client\src\environments\environment.ts" />
     <TypeScriptCompile Include="client\src\main.ts" />
@@ -45,6 +51,15 @@
     <Content Include="client\angular.json" />
     <Content Include="client\browserslist" />
     <Content Include="client\README.md" />
+    <Content Include="client\src\app\app.component.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="client\src\app\components\availability-chart\availability-chart.component.css" />
+    <Content Include="client\src\app\components\availability-chart\availability-chart.component.html" />
+    <Content Include="client\src\app\components\availability-table\availability-table.component.css" />
+    <Content Include="client\src\app\components\availability-table\availability-table.component.html" />
+    <Content Include="client\src\app\components\product-selector\product-selector.component.css" />
+    <Content Include="client\src\app\components\product-selector\product-selector.component.html" />
     <Content Include="client\src\assets\.gitkeep" />
     <Content Include="client\src\favicon.ico" />
     <Content Include="client\src\index.html" />
@@ -70,6 +85,10 @@
     <Folder Include="client\node_modules\" />
     <Folder Include="client\src\" />
     <Folder Include="client\src\app\" />
+    <Folder Include="client\src\app\components\" />
+    <Folder Include="client\src\app\components\availability-chart\" />
+    <Folder Include="client\src\app\components\availability-table\" />
+    <Folder Include="client\src\app\components\product-selector\" />
     <Folder Include="client\src\assets\" />
     <Folder Include="client\src\environments\" />
     <Folder Include="server\" />
