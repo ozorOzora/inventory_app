@@ -6,6 +6,8 @@
     <Name>Flowlity.Core</Name>
     <RootNamespace>Flowlity.Core</RootNamespace>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+    <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
+    <TypeScriptBuildMode>true</TypeScriptBuildMode>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -24,9 +26,9 @@
     <NodejsPort>3000</NodejsPort>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
     <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
-    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <EnableTypeScript>true</EnableTypeScript>
-    <StartWebBrowser>true</StartWebBrowser>
+    <StartWebBrowser>True</StartWebBrowser>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,12 +39,14 @@
   <ItemGroup>
     <TypeScriptCompile Include="client\src\app\app.component.ts" />
     <TypeScriptCompile Include="client\src\app\app.module.ts" />
-    <TypeScriptCompile Include="client\src\app\components\availability-chart\availability-chart.component.spec.ts" />
     <TypeScriptCompile Include="client\src\app\components\availability-chart\availability-chart.component.ts" />
-    <TypeScriptCompile Include="client\src\app\components\availability-table\availability-table.component.spec.ts" />
     <TypeScriptCompile Include="client\src\app\components\availability-table\availability-table.component.ts" />
-    <TypeScriptCompile Include="client\src\app\components\product-selector\product-selector.component.spec.ts" />
     <TypeScriptCompile Include="client\src\app\components\product-selector\product-selector.component.ts" />
+    <TypeScriptCompile Include="client\src\app\models\product.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="client\src\app\services\availability.service.ts" />
+    <TypeScriptCompile Include="client\src\app\services\product.service.ts" />
     <TypeScriptCompile Include="client\src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="client\src\environments\environment.ts" />
     <TypeScriptCompile Include="client\src\main.ts" />
@@ -82,13 +86,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="client\" />
-    <Folder Include="client\node_modules\" />
     <Folder Include="client\src\" />
     <Folder Include="client\src\app\" />
     <Folder Include="client\src\app\components\" />
     <Folder Include="client\src\app\components\availability-chart\" />
     <Folder Include="client\src\app\components\availability-table\" />
     <Folder Include="client\src\app\components\product-selector\" />
+    <Folder Include="client\src\app\models\" />
+    <Folder Include="client\src\app\services\" />
     <Folder Include="client\src\assets\" />
     <Folder Include="client\src\environments\" />
     <Folder Include="server\" />

@@ -3,7 +3,10 @@
     "module": "commonjs",
     "target": "es5",
     "lib": [ "es6" ],
-    "sourceMap": true
+    "sourceMap": true,
+    "typeRoots": [
+      "../node_modules/@types"
+    ]
   },
   "include": [
     "server/**/*.ts"

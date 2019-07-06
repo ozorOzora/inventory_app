@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatSelectModule } from '@angular/material';
 
@@ -19,7 +20,8 @@ import { AvailabilityChartComponent } from './components/availability-chart/avai
   imports: [
       BrowserModule,
       BrowserAnimationsModule,
-      MatSelectModule
+      HttpClientModule,
+      MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
