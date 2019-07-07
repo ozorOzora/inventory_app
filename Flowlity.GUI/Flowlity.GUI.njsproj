@@ -36,7 +36,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="angular.json" />
-    <Content Include="app.css" />
     <Content Include="index.html" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="obj\Debug\Flowlity.GUI.csproj.CoreCompileInputs.cache" />
