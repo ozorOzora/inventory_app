@@ -8,6 +8,13 @@ var AvailabilityRepository = /** @class */ (function () {
     AvailabilityRepository.prototype.findAll = function (productId) {
         return this._collection.find({ 'productId': productId });
     };
+    // Returns a single availlability
+    AvailabilityRepository.prototype.find = function (id) {
+        return this._collection.findOne({ $loki: id });
+    };
+    AvailabilityRepository.prototype.update = function (availability) {
+        this._collection.update(availability);
+    };
     return AvailabilityRepository;
 }());
 exports.AvailabilityRepository = AvailabilityRepository;

@@ -22,7 +22,6 @@ export class ProductSelectorComponent implements OnInit {
     }
 
     selectProduct(selectedChange: MatSelectChange) {
-        console.log(selectedChange.value);
         this.productSelected.emit(selectedChange.value);
     }
 

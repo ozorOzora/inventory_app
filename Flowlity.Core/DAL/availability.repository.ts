@@ -12,6 +12,15 @@ export class AvailabilityRepository {
         return this._collection.find({ 'productId': productId });
     }
 
+    // Returns a single availlability
+    find(id: number): Availability {
+        return this._collection.findOne({ $loki: id });
+    }
+
+    update(availability: Availability): void {
+        this._collection.update(availability);
+    }
+
 }
 
 module.exports = function (collection: Collection<Availability>) {

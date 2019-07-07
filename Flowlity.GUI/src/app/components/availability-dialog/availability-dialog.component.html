@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Edit availability for {{data.name}} on {{data.date | date: 'longDate'}}</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <input matInput [(ngModel)]="data.inventoryLevel">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.inventoryLevel">Confirm availability</button>
+</div>

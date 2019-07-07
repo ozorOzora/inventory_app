@@ -13,6 +13,15 @@ export class AvailabilityManager {
         return this._repository.findAll(productId);
     }
 
+    // Returns a single availlability
+    find(id: number): Availability {
+        return this._repository.find(id);
+    }
+
+    update(availability: Availability): void {
+        this._repository.update(availability);
+    }
+
 }
 
 module.exports = function (repository: AvailabilityRepository) {

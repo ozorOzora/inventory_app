@@ -1,7 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var e_1, _a;
 //initializing in-memory database and collections
 var Loki = require("lokijs");
 var Path = require("path");
@@ -27,26 +25,16 @@ for (var i = 1; i < 101; ++i) {
 var products = productManager.findAll();
 var now = new Date().getTime();
 for (var d = 0; d < 90; ++d) { //For every day in the last 3 months, set each product availability
-    try {
-        for (var products_1 = tslib_1.__values(products), products_1_1 = products_1.next(); !products_1_1.done; products_1_1 = products_1.next()) {
-            var p = products_1_1.value;
-            availabilitiesCol.insert({
-                productId: p.id,
-                productName: p.name,
-                date: new Date(new Date().setTime(now - d * 8.64e+7)),
-                inventoryLevel: Math.floor(Math.random() * 60) + 20
-            });
-        }
-    }
-    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-    finally {
-        try {
-            if (products_1_1 && !products_1_1.done && (_a = products_1.return)) _a.call(products_1);
-        }
-        finally { if (e_1) throw e_1.error; }
+    for (var _i = 0, products_1 = products; _i < products_1.length; _i++) {
+        var p = products_1[_i];
+        availabilitiesCol.insert({
+            productId: p.id,
+            productName: p.name,
+            date: new Date(new Date().setTime(now - d * 8.64e+7)),
+            inventoryLevel: Math.floor(Math.random() * 60) + 20
+        });
     }
 }
-var test = availabilitiesCol.find({ productId: 2 });
 // initializing MVC app
 var app = Express();
 // view engine setup
@@ -54,10 +42,12 @@ app.set('views', Path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 // define folder for static files
 app.use(Express.static(Path.join(__dirname, 'wwwroot')));
+// allows use of application/json
+app.use(Express.json());
+// defining routes
 app.use('/products', productController);
 app.use('/availabilities', availabilityController);
 app.use('/', index_1.default);
-//app.use('/users', users);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

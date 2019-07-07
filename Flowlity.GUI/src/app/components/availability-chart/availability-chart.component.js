@@ -15,7 +15,8 @@ var AvailabilityChartComponent = /** @class */ (function () {
                 enabled: true
             },
             toolbar: {
-                autoSelected: 'zoom'
+                show: false,
+                autoSelected: 'pan'
             }
         };
         this.dataLabels = {
@@ -29,7 +30,7 @@ var AvailabilityChartComponent = /** @class */ (function () {
             gradient: {
                 shadeIntensity: 1,
                 inverseColors: false,
-                opacityFrom: 0.5,
+                opacityFrom: 0.7,
                 opacityTo: 0,
                 stops: [0, 100]
             }

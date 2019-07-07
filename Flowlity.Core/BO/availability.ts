@@ -1,5 +1,5 @@
 ﻿export class Availability {
-    id: number;
+    $loki: number;
     productId: number;
     productName: string;
     date: Date;

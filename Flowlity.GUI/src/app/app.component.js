@@ -7,19 +7,27 @@ var AppComponent = /** @class */ (function () {
         this._availabilityService = _availabilityService;
         this.availabilities = [];
     }
-    AppComponent.prototype.getAvailabilities = function (product) {
+    AppComponent.prototype.getAvailabilities = function (productId) {
         var _this = this;
-        this._availabilityService.findAll(product.id)
+        this._availabilityService.findAll(productId)
             .subscribe(function (availabilities) {
-            console.log(availabilities);
             _this.availabilities = availabilities;
+        });
+    };
+    AppComponent.prototype.productSelected = function (product) {
+        this.getAvailabilities(product.id);
+    };
+    AppComponent.prototype.updateAvailability = function (availability) {
+        var _this = this;
+        this._availabilityService.update(availability).subscribe(function () {
+            _this.getAvailabilities(availability.productId);
         });
     };
     AppComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'app-root',
             templateUrl: './app.component.html',
-            styles: []
+            styleUrls: ['./app.component.css']
         })
     ], AppComponent);
     return AppComponent;

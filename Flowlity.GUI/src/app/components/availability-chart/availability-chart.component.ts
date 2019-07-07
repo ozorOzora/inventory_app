@@ -28,7 +28,8 @@ export class AvailabilityChartComponent implements OnInit {
                 enabled: true
             },
             toolbar: {
-                autoSelected: 'zoom'
+                show: false,
+                autoSelected: 'pan'
             }
         };
         this.dataLabels = {
@@ -42,7 +43,7 @@ export class AvailabilityChartComponent implements OnInit {
             gradient: {
                 shadeIntensity: 1,
                 inverseColors: false,
-                opacityFrom: 0.5,
+                opacityFrom: 0.7,
                 opacityTo: 0,
                 stops: [0, 100]
             }

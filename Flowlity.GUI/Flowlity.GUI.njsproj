@@ -46,9 +46,14 @@
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="src\app\app.component.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\app\app.component.html" />
     <Content Include="src\app\components\availability-chart\availability-chart.component.css" />
     <Content Include="src\app\components\availability-chart\availability-chart.component.html" />
+    <Content Include="src\app\components\availability-dialog\availability-dialog.component.css" />
+    <Content Include="src\app\components\availability-dialog\availability-dialog.component.html" />
     <Content Include="src\app\components\availability-table\availability-table.component.css" />
     <Content Include="src\app\components\availability-table\availability-table.component.html" />
     <Content Include="src\app\components\product-selector\product-selector.component.css" />
@@ -86,6 +91,7 @@
     <Folder Include="src\app\" />
     <Folder Include="src\app\components\" />
     <Folder Include="src\app\components\availability-chart\" />
+    <Folder Include="src\app\components\availability-dialog\" />
     <Folder Include="src\app\components\availability-table\" />
     <Folder Include="src\app\components\product-selector\" />
     <Folder Include="src\app\models\" />
@@ -100,6 +106,7 @@
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\components\availability-chart\availability-chart.component.ts" />
+    <TypeScriptCompile Include="src\app\components\availability-dialog\availability-dialog.component.ts" />
     <TypeScriptCompile Include="src\app\components\availability-table\availability-table.component.ts" />
     <TypeScriptCompile Include="src\app\components\product-selector\product-selector.component.ts" />
     <TypeScriptCompile Include="src\app\models\availability.ts" />

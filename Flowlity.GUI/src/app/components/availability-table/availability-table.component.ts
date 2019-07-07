@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Availability } from 'src/app/models/availability';
+import { MatDialog } from '@angular/material';
+import { AvailabilityDialogComponent } from '../availability-dialog/availability-dialog.component';
 
 @Component({
     selector: 'app-availability-table',
@@ -8,12 +10,26 @@ import { Availability } from 'src/app/models/availability';
 })
 export class AvailabilityTableComponent {
     @Input() availabilities: Availability[];
-    displayedColumns = ['name', 'inventory_level', 'date']
+    @Output() availabilityUpdated: EventEmitter<Availability> = new EventEmitter();
+    displayedColumns = ['name', 'inventory_level', 'date', 'actions']
 
-    constructor() { }
+    constructor(
+        public dialog: MatDialog
+    ) { }
 
     ngOnChanges() {
         console.log(this.availabilities);
+    }
+
+    openDialog(availability: Availability) {
+        const dialogRef = this.dialog.open(AvailabilityDialogComponent, {
+            width: '380px',
+            data: { name: availability.productName, inventoryLevel: availability.inventoryLevel, date: availability.date }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            availability.inventoryLevel = parseInt(result);
+            this.availabilityUpdated.emit(availability);
+        });
     }
 
 }

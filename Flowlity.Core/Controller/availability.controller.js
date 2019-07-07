@@ -6,8 +6,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var router = express.Router();
 module.exports = function (manager) {
-    router.get('/:id', function (req, res) {
-        res.send(manager.findAll(parseInt(req.params.id)));
+    router.get('/:productId', function (req, res) {
+        res.send(manager.findAll(parseInt(req.params.productId)));
+    });
+    router.put('/', function (req, res) {
+        var object = req.body;
+        var availability = manager.find(object.$loki);
+        availability.inventoryLevel = object.inventoryLevel;
+        manager.update(availability);
+        res.send();
     });
     return router;
 };

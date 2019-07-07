@@ -9,6 +9,9 @@ var AvailabilityService = /** @class */ (function () {
     AvailabilityService.prototype.findAll = function (productId) {
         return this._http.get("/availabilities/" + productId);
     };
+    AvailabilityService.prototype.update = function (availability) {
+        return this._http.put("/availabilities", { $loki: availability.$loki, inventoryLevel: availability.inventoryLevel });
+    };
     AvailabilityService = tslib_1.__decorate([
         core_1.Injectable({
             providedIn: 'root'

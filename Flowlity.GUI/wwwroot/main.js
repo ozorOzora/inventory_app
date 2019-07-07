@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "    <!--The content below is only a placeholder and can be replaced.-->\r\n<div style=\"text-align:center\">\r\n    <h1>\r\n        Flowlity\r\n    </h1>\r\n</div>\r\n\r\n<app-product-selector (productSelected)=\"getAvailabilities($event)\"></app-product-selector>\r\n<app-availability-chart [availabilities]=\"availabilities\"></app-availability-chart>\r\n<app-availability-table [availabilities]=\"availabilities\"></app-availability-table>"
+module.exports = "<div class=\"container\">\r\n    <div class=\"product-container\">\r\n        <app-product-selector (productSelected)=\"productSelected($event)\"></app-product-selector>\r\n    </div>\r\n    <div class=\"availabilities-container\">\r\n        <app-availability-chart [availabilities]=\"availabilities\"></app-availability-chart>\r\n        <app-availability-table [availabilities]=\"availabilities\" (availabilityUpdated)=\"updateAvailability($event)\"></app-availability-table>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -41,7 +41,18 @@ module.exports = "    <!--The content below is only a placeholder and can be rep
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<apx-chart [series]=\"series\"\r\n           [title]=\"title\"\r\n           [chart]=\"chart\"\r\n           [colors]=\"['black']\"\r\n           [fill]=\"fill\"\r\n           [dataLabels]=\"dataLabels\"\r\n           [xaxis]=\"xaxis\"\r\n           [yaxis]=\"yaxis\"></apx-chart>"
+module.exports = "<apx-chart [series]=\"series\"\r\n           [title]=\"title\"\r\n           [chart]=\"chart\"\r\n           [colors]=\"['black']\"\r\n           [fill]=\"fill\"\r\n           [dataLabels]=\"dataLabels\"\r\n           [xaxis]=\"xaxis\"\r\n           [yaxis]=\"yaxis\"\r\n           style=\"width:600px;\"></apx-chart>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/availability-dialog/availability-dialog.component.html":
+/*!*************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/availability-dialog/availability-dialog.component.html ***!
+  \*************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>Edit availability for {{data.name}} on {{data.date | date: 'longDate'}}</h1>\r\n<div mat-dialog-content>\r\n    <mat-form-field>\r\n        <input matInput [(ngModel)]=\"data.inventoryLevel\">\r\n    </mat-form-field>\r\n</div>\r\n<div mat-dialog-actions>\r\n    <button mat-button (click)=\"closeDialog()\">Cancel</button>\r\n    <button mat-button [mat-dialog-close]=\"data.inventoryLevel\">Confirm availability</button>\r\n</div>"
 
 /***/ }),
 
@@ -52,7 +63,7 @@ module.exports = "<apx-chart [series]=\"series\"\r\n           [title]=\"title\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<table mat-table [dataSource]=\"availabilities\">\r\n\r\n    <!--- Note that these columns can be defined in any order.\r\n          The actual rendered columns are set as a property on the row definition\" -->\r\n\r\n    <!-- Name Column -->\r\n    <ng-container matColumnDef=\"name\">\r\n        <th mat-header-cell *matHeaderCellDef> Name </th>\r\n        <td mat-cell *matCellDef=\"let availability\"> {{availability.productName}} </td>\r\n    </ng-container>\r\n\r\n    <!-- Weight Column -->\r\n    <ng-container matColumnDef=\"inventory_level\">\r\n        <th mat-header-cell *matHeaderCellDef> Inventory level </th>\r\n        <td mat-cell *matCellDef=\"let availability\"> {{availability.inventoryLevel}} </td>\r\n    </ng-container>\r\n\r\n    <!-- Symbol Column -->\r\n    <ng-container matColumnDef=\"date\">\r\n        <th mat-header-cell *matHeaderCellDef> Date </th>\r\n        <td mat-cell *matCellDef=\"let availability\"> {{availability.date}} </td>\r\n    </ng-container>\r\n\r\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n</table>"
+module.exports = "<div style=\"height:400px; overflow:auto\">\r\n\r\n    <table mat-table [dataSource]=\"availabilities\" style=\"width:100%;\">\r\n\r\n        <ng-container matColumnDef=\"name\">\r\n            <th mat-header-cell *matHeaderCellDef> Name </th>\r\n            <td mat-cell *matCellDef=\"let availability\"> {{availability.productName}} </td>\r\n        </ng-container>\r\n\r\n        <ng-container matColumnDef=\"inventory_level\">\r\n            <th mat-header-cell *matHeaderCellDef> Inventory level </th>\r\n            <td mat-cell *matCellDef=\"let availability\"> {{availability.inventoryLevel}} </td>\r\n        </ng-container>\r\n\r\n        <ng-container matColumnDef=\"date\">\r\n            <th mat-header-cell *matHeaderCellDef> Date </th>\r\n            <td mat-cell *matCellDef=\"let availability\"> {{availability.date | date: 'longDate' }} </td>\r\n        </ng-container>\r\n\r\n        <ng-container matColumnDef=\"actions\">\r\n            <th mat-header-cell *matHeaderCellDef></th>\r\n            <td mat-cell *matCellDef=\"let availability\">\r\n                <button mat-button (click)=\"openDialog(availability)\">Edit</button>\r\n            </td>\r\n        </ng-container>\r\n\r\n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns; sticky: true\"></tr>\r\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n    </table>\r\n\r\n</div>"
 
 /***/ }),
 
@@ -64,6 +75,17 @@ module.exports = "<table mat-table [dataSource]=\"availabilities\">\r\n\r\n    <
 /***/ (function(module, exports) {
 
 module.exports = "<mat-form-field>\r\n    <mat-label>Select a product</mat-label>\r\n    <mat-select (selectionChange)=\"selectProduct($event)\">\r\n        <mat-option *ngFor=\"let product of products\" [value]=\"product\">\r\n            {{product.name}}\r\n        </mat-option>\r\n    </mat-select>\r\n</mat-form-field>"
+
+/***/ }),
+
+/***/ "./src/app/app.component.css":
+/*!***********************************!*\
+  !*** ./src/app/app.component.css ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".container{\r\n    display:-webkit-box;\r\n    display:flex;\r\n    align-content: flex-start;\r\n    -webkit-box-pack: center;\r\n            justify-content: center;\r\n    margin-top:20px;\r\n}\r\n\r\n.product-container{\r\n    margin-right:20px;\r\n}\r\n\r\n.availabilities-container {\r\n    width: 800px;\r\n    background-color: #ffffff;\r\n    border: 1px solid lightgray;\r\n    border-radius: 10px 10px 0 0;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxtQkFBWTtJQUFaLFlBQVk7SUFDWix5QkFBeUI7SUFDekIsd0JBQXVCO1lBQXZCLHVCQUF1QjtJQUN2QixlQUFlO0FBQ25COztBQUVBO0lBQ0ksaUJBQWlCO0FBQ3JCOztBQUVBO0lBQ0ksWUFBWTtJQUNaLHlCQUF5QjtJQUN6QiwyQkFBMkI7SUFDM0IsNEJBQTRCO0FBQ2hDIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY29udGFpbmVye1xyXG4gICAgZGlzcGxheTpmbGV4O1xyXG4gICAgYWxpZ24tY29udGVudDogZmxleC1zdGFydDtcclxuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gICAgbWFyZ2luLXRvcDoyMHB4O1xyXG59XHJcblxyXG4ucHJvZHVjdC1jb250YWluZXJ7XHJcbiAgICBtYXJnaW4tcmlnaHQ6MjBweDtcclxufVxyXG5cclxuLmF2YWlsYWJpbGl0aWVzLWNvbnRhaW5lciB7XHJcbiAgICB3aWR0aDogODAwcHg7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xyXG4gICAgYm9yZGVyOiAxcHggc29saWQgbGlnaHRncmF5O1xyXG4gICAgYm9yZGVyLXJhZGl1czogMTBweCAxMHB4IDAgMDtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -85,12 +107,20 @@ var AppComponent = /** @class */ (function () {
         this._availabilityService = _availabilityService;
         this.availabilities = [];
     }
-    AppComponent.prototype.getAvailabilities = function (product) {
+    AppComponent.prototype.getAvailabilities = function (productId) {
         var _this = this;
-        this._availabilityService.findAll(product.id)
+        this._availabilityService.findAll(productId)
             .subscribe(function (availabilities) {
-            console.log(availabilities);
             _this.availabilities = availabilities;
+        });
+    };
+    AppComponent.prototype.productSelected = function (product) {
+        this.getAvailabilities(product.id);
+    };
+    AppComponent.prototype.updateAvailability = function (availability) {
+        var _this = this;
+        this._availabilityService.update(availability).subscribe(function () {
+            _this.getAvailabilities(availability.productId);
         });
     };
     AppComponent.ctorParameters = function () { return [
@@ -99,7 +129,8 @@ var AppComponent = /** @class */ (function () {
     AppComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'app-root',
-            template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html")
+            template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
+            styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         })
     ], AppComponent);
     return AppComponent;
@@ -130,6 +161,8 @@ var app_component_1 = __webpack_require__(/*! ./app.component */ "./src/app/app.
 var product_selector_component_1 = __webpack_require__(/*! ./components/product-selector/product-selector.component */ "./src/app/components/product-selector/product-selector.component.ts");
 var availability_table_component_1 = __webpack_require__(/*! ./components/availability-table/availability-table.component */ "./src/app/components/availability-table/availability-table.component.ts");
 var availability_chart_component_1 = __webpack_require__(/*! ./components/availability-chart/availability-chart.component */ "./src/app/components/availability-chart/availability-chart.component.ts");
+var availability_dialog_component_1 = __webpack_require__(/*! ./components/availability-dialog/availability-dialog.component */ "./src/app/components/availability-dialog/availability-dialog.component.ts");
+var forms_1 = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -139,15 +172,23 @@ var AppModule = /** @class */ (function () {
                 app_component_1.AppComponent,
                 product_selector_component_1.ProductSelectorComponent,
                 availability_table_component_1.AvailabilityTableComponent,
-                availability_chart_component_1.AvailabilityChartComponent
+                availability_chart_component_1.AvailabilityChartComponent,
+                availability_dialog_component_1.AvailabilityDialogComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 animations_1.BrowserAnimationsModule,
+                forms_1.FormsModule,
                 http_1.HttpClientModule,
+                material_1.MatButtonModule,
+                material_1.MatDialogModule,
                 material_1.MatSelectModule,
                 material_1.MatTableModule,
+                material_1.MatInputModule,
                 ng_apexcharts_1.NgApexchartsModule
+            ],
+            entryComponents: [
+                availability_dialog_component_1.AvailabilityDialogComponent
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]
@@ -196,7 +237,8 @@ var AvailabilityChartComponent = /** @class */ (function () {
                 enabled: true
             },
             toolbar: {
-                autoSelected: 'zoom'
+                show: false,
+                autoSelected: 'pan'
             }
         };
         this.dataLabels = {
@@ -210,7 +252,7 @@ var AvailabilityChartComponent = /** @class */ (function () {
             gradient: {
                 shadeIntensity: 1,
                 inverseColors: false,
-                opacityFrom: 0.5,
+                opacityFrom: 0.7,
                 opacityTo: 0,
                 stops: [0, 100]
             }
@@ -251,6 +293,59 @@ exports.AvailabilityChartComponent = AvailabilityChartComponent;
 
 /***/ }),
 
+/***/ "./src/app/components/availability-dialog/availability-dialog.component.css":
+/*!**********************************************************************************!*\
+  !*** ./src/app/components/availability-dialog/availability-dialog.component.css ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYXZhaWxhYmlsaXR5LWRpYWxvZy9hdmFpbGFiaWxpdHktZGlhbG9nLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/components/availability-dialog/availability-dialog.component.ts":
+/*!*********************************************************************************!*\
+  !*** ./src/app/components/availability-dialog/availability-dialog.component.ts ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var AvailabilityDialogComponent = /** @class */ (function () {
+    function AvailabilityDialogComponent(dialogRef, data) {
+        this.dialogRef = dialogRef;
+        this.data = data;
+    }
+    AvailabilityDialogComponent.prototype.ngOnInit = function () {
+    };
+    AvailabilityDialogComponent.prototype.closeDialog = function () {
+        this.dialogRef.close();
+    };
+    AvailabilityDialogComponent.ctorParameters = function () { return [
+        { type: material_1.MatDialogRef },
+        { type: undefined, decorators: [{ type: core_1.Inject, args: [material_1.MAT_DIALOG_DATA,] }] }
+    ]; };
+    AvailabilityDialogComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'app-availability-dialog',
+            template: __webpack_require__(/*! raw-loader!./availability-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/availability-dialog/availability-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./availability-dialog.component.css */ "./src/app/components/availability-dialog/availability-dialog.component.css")]
+        }),
+        tslib_1.__param(1, core_1.Inject(material_1.MAT_DIALOG_DATA))
+    ], AvailabilityDialogComponent);
+    return AvailabilityDialogComponent;
+}());
+exports.AvailabilityDialogComponent = AvailabilityDialogComponent;
+
+
+/***/ }),
+
 /***/ "./src/app/components/availability-table/availability-table.component.css":
 /*!********************************************************************************!*\
   !*** ./src/app/components/availability-table/availability-table.component.css ***!
@@ -274,16 +369,37 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var availability_dialog_component_1 = __webpack_require__(/*! ../availability-dialog/availability-dialog.component */ "./src/app/components/availability-dialog/availability-dialog.component.ts");
 var AvailabilityTableComponent = /** @class */ (function () {
-    function AvailabilityTableComponent() {
-        this.displayedColumns = ['name', 'inventory_level', 'date'];
+    function AvailabilityTableComponent(dialog) {
+        this.dialog = dialog;
+        this.availabilityUpdated = new core_1.EventEmitter();
+        this.displayedColumns = ['name', 'inventory_level', 'date', 'actions'];
     }
     AvailabilityTableComponent.prototype.ngOnChanges = function () {
         console.log(this.availabilities);
     };
+    AvailabilityTableComponent.prototype.openDialog = function (availability) {
+        var _this = this;
+        var dialogRef = this.dialog.open(availability_dialog_component_1.AvailabilityDialogComponent, {
+            width: '380px',
+            data: { name: availability.productName, inventoryLevel: availability.inventoryLevel, date: availability.date }
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            availability.inventoryLevel = parseInt(result);
+            _this.availabilityUpdated.emit(availability);
+        });
+    };
+    AvailabilityTableComponent.ctorParameters = function () { return [
+        { type: material_1.MatDialog }
+    ]; };
     tslib_1.__decorate([
         core_1.Input()
     ], AvailabilityTableComponent.prototype, "availabilities", void 0);
+    tslib_1.__decorate([
+        core_1.Output()
+    ], AvailabilityTableComponent.prototype, "availabilityUpdated", void 0);
     AvailabilityTableComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'app-availability-table',
@@ -332,7 +448,6 @@ var ProductSelectorComponent = /** @class */ (function () {
         this._productService.findAll().subscribe(function (products) { _this.products = products; });
     };
     ProductSelectorComponent.prototype.selectProduct = function (selectedChange) {
-        console.log(selectedChange.value);
         this.productSelected.emit(selectedChange.value);
     };
     ProductSelectorComponent.ctorParameters = function () { return [
@@ -374,6 +489,9 @@ var AvailabilityService = /** @class */ (function () {
     }
     AvailabilityService.prototype.findAll = function (productId) {
         return this._http.get("/availabilities/" + productId);
+    };
+    AvailabilityService.prototype.update = function (availability) {
+        return this._http.put("/availabilities", { $loki: availability.$loki, inventoryLevel: availability.inventoryLevel });
     };
     AvailabilityService.ctorParameters = function () { return [
         { type: http_1.HttpClient }

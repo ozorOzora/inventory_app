@@ -12,7 +12,6 @@ var ProductSelectorComponent = /** @class */ (function () {
         this._productService.findAll().subscribe(function (products) { _this.products = products; });
     };
     ProductSelectorComponent.prototype.selectProduct = function (selectedChange) {
-        console.log(selectedChange.value);
         this.productSelected.emit(selectedChange.value);
     };
     tslib_1.__decorate([

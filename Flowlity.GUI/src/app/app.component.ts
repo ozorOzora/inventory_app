@@ -7,7 +7,7 @@ import { Availability } from './models/availability';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styles: []
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
     availabilities: Availability[] = [];
@@ -16,11 +16,21 @@ export class AppComponent {
         private _availabilityService: AvailabilityService
     ) { }
 
-    getAvailabilities(product: Product) {
-        this._availabilityService.findAll(product.id)
+    getAvailabilities(productId: number) {
+        this._availabilityService.findAll(productId)
             .subscribe(availabilities => {
-                console.log(availabilities);
-                this.availabilities = availabilities
-            })
+                this.availabilities = availabilities;
+            });
     }
+
+    productSelected(product) {
+        this.getAvailabilities(product.id)
+    }
+
+    updateAvailability(availability: Availability) {
+        this._availabilityService.update(availability).subscribe(() => {
+            this.getAvailabilities(availability.productId);
+        });
+    }
+
 }

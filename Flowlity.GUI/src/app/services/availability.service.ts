@@ -15,4 +15,8 @@ export class AvailabilityService {
     findAll(productId: number): Observable<Availability[]> {
         return this._http.get<Availability[]>(`/availabilities/${productId}`);
     }
+
+    update(availability: Availability): Observable<void> {
+        return this._http.put<void>(`/availabilities`, { $loki: availability.$loki, inventoryLevel: availability.inventoryLevel });
+    }
 }

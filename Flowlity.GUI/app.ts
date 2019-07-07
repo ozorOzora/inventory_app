@@ -40,13 +40,8 @@ for (let d = 0; d < 90; ++d) { //For every day in the last 3 months, set each pr
     }
 }
 
-var test = availabilitiesCol.find({ productId: 2 });
-
-
-
 // initializing MVC app
 var app = Express();
-
 
 // view engine setup
 app.set('views', Path.join(__dirname, 'views'));
@@ -55,10 +50,13 @@ app.set('view engine', 'pug');
 // define folder for static files
 app.use(Express.static(Path.join(__dirname, 'wwwroot')));
 
+// allows use of application/json
+app.use(Express.json());
+
+// defining routes
 app.use('/products', productController);
 app.use('/availabilities', availabilityController);
 app.use('/', routes);
-//app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

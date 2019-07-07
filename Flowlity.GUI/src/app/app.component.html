@@ -1,10 +1,9 @@
-﻿    <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-    <h1>
-        Flowlity
-    </h1>
+﻿<div class="container">
+    <div class="product-container">
+        <app-product-selector (productSelected)="productSelected($event)"></app-product-selector>
+    </div>
+    <div class="availabilities-container">
+        <app-availability-chart [availabilities]="availabilities"></app-availability-chart>
+        <app-availability-table [availabilities]="availabilities" (availabilityUpdated)="updateAvailability($event)"></app-availability-table>
+    </div>
 </div>
-
-<app-product-selector (productSelected)="getAvailabilities($event)"></app-product-selector>
-<app-availability-chart [availabilities]="availabilities"></app-availability-chart>
-<app-availability-table [availabilities]="availabilities"></app-availability-table>
