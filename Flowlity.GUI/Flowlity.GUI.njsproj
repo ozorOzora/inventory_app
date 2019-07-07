@@ -12,7 +12,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>bca6ee8a-48be-4cd7-aa73-5c661d5c84a7</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>app.js</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <StartWebBrowser>True</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -45,7 +46,6 @@
     <Content Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
-    <Content Include="README.md" />
     <Content Include="src\app\app.component.css">
       <SubType>Code</SubType>
     </Content>
@@ -63,14 +63,7 @@
     <Content Include="src\environments\environment.prod.js.map" />
     <Content Include="src\favicon.ico" />
     <Content Include="src\index.html" />
-    <Content Include="src\main.js.map" />
-    <Content Include="src\polyfills.js.map" />
     <Content Include="src\styles.css" />
-    <Content Include="views\error.pug" />
-    <Content Include="views\index.pug" />
-    <Content Include="views\layout.pug" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config" />
     <Content Include="tsconfig.json" />
     <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\index.html" />
@@ -98,11 +91,9 @@
     <Folder Include="src\app\services\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\environments\" />
-    <Folder Include="views\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\components\availability-chart\availability-chart.component.ts" />
@@ -121,8 +112,6 @@
   <ItemGroup>
     <Compile Include="src\environments\environment.js" />
     <Compile Include="src\environments\environment.prod.js" />
-    <Compile Include="src\main.js" />
-    <Compile Include="src\polyfills.js" />
     <Compile Include="wwwroot\main.js" />
     <Compile Include="wwwroot\polyfills-es5.js" />
     <Compile Include="wwwroot\polyfills.js" />
