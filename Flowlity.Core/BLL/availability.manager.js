@@ -12,7 +12,9 @@ var AvailabilityManager = /** @class */ (function () {
     AvailabilityManager.prototype.find = function (id) {
         return this._repository.find(id);
     };
-    AvailabilityManager.prototype.update = function (availability) {
+    AvailabilityManager.prototype.updateInventory = function (id, inventoryLevel) {
+        var availability = this._repository.find(id);
+        availability.inventoryLevel = inventoryLevel;
         this._repository.update(availability);
     };
     return AvailabilityManager;

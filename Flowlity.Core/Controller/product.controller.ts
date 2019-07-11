@@ -11,9 +11,5 @@ module.exports = function (manager: ProductManager) {
         res.send(manager.findAll());
     });
 
-    //router.post('/', (req: express.Request, res: express.Response) => {
-    //    res.send();
-    //});
-
     return router;
 }

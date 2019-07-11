@@ -18,7 +18,9 @@ export class AvailabilityManager {
         return this._repository.find(id);
     }
 
-    update(availability: Availability): void {
+    updateInventory(id: number, inventoryLevel: number): void {
+        var availability = this._repository.find(id);
+        availability.inventoryLevel = inventoryLevel;
         this._repository.update(availability);
     }
 
