@@ -52,7 +52,7 @@ module.exports = "<apx-chart [series]=\"series\"\r\n           [title]=\"title\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 mat-dialog-title>Edit availability for {{data.name}} on {{data.date | date: 'longDate'}}</h1>\r\n<div mat-dialog-content>\r\n    <mat-form-field>\r\n        <input matInput [(ngModel)]=\"data.inventoryLevel\">\r\n    </mat-form-field>\r\n</div>\r\n<div mat-dialog-actions>\r\n    <button mat-button (click)=\"closeDialog()\">Cancel</button>\r\n    <button mat-button [mat-dialog-close]=\"data.inventoryLevel\">Confirm availability</button>\r\n</div>"
+module.exports = "<h1 mat-dialog-title>Edit availability for {{data.name}} on {{data.date | date: 'longDate'}}</h1>\r\n<div mat-dialog-content>\r\n    <form [formGroup]=\"formGroup\">\r\n        <mat-form-field>\r\n            <input matInput [formControl]=\"inventoryLevel\">\r\n            <mat-error *ngIf=\"inventoryLevel.hasError('required')\">This field is required</mat-error>\r\n            <mat-error *ngIf=\"inventoryLevel.hasError('notAnInteger')\">Should be an integer</mat-error>\r\n        </mat-form-field>\r\n    </form>\r\n</div>\r\n<div mat-dialog-actions>\r\n    <button mat-button (click)=\"closeDialog()\">Cancel</button>\r\n    <button mat-button [disabled]=\"!formGroup.valid\" [mat-dialog-close]=\"inventoryLevel.value\">Confirm availability</button>\r\n</div>"
 
 /***/ }),
 
@@ -179,6 +179,7 @@ var AppModule = /** @class */ (function () {
                 platform_browser_1.BrowserModule,
                 animations_1.BrowserAnimationsModule,
                 forms_1.FormsModule,
+                forms_1.ReactiveFormsModule,
                 http_1.HttpClientModule,
                 material_1.MatButtonModule,
                 material_1.MatDialogModule,
@@ -317,13 +318,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var material_1 = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var forms_1 = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 var AvailabilityDialogComponent = /** @class */ (function () {
     function AvailabilityDialogComponent(dialogRef, data) {
         this.dialogRef = dialogRef;
         this.data = data;
+        this.formGroup = new AvailabilityForm();
+        this.inventoryLevel.setValue(data.inventoryLevel);
     }
-    AvailabilityDialogComponent.prototype.ngOnInit = function () {
-    };
+    Object.defineProperty(AvailabilityDialogComponent.prototype, "inventoryLevel", {
+        get: function () { return this.formGroup.get('inventoryLevel'); },
+        enumerable: true,
+        configurable: true
+    });
     AvailabilityDialogComponent.prototype.closeDialog = function () {
         this.dialogRef.close();
     };
@@ -342,6 +349,21 @@ var AvailabilityDialogComponent = /** @class */ (function () {
     return AvailabilityDialogComponent;
 }());
 exports.AvailabilityDialogComponent = AvailabilityDialogComponent;
+var AvailabilityForm = /** @class */ (function (_super) {
+    tslib_1.__extends(AvailabilityForm, _super);
+    function AvailabilityForm() {
+        return _super.call(this, {
+            "inventoryLevel": new forms_1.FormControl('', [
+                forms_1.Validators.required,
+                function (field) {
+                    return field.value % 1 == 0 ? null : { 'notAnInteger': true };
+                }
+            ])
+        }) || this;
+    }
+    return AvailabilityForm;
+}(forms_1.FormGroup));
+exports.AvailabilityForm = AvailabilityForm;
 
 
 /***/ }),
@@ -377,9 +399,6 @@ var AvailabilityTableComponent = /** @class */ (function () {
         this.availabilityUpdated = new core_1.EventEmitter();
         this.displayedColumns = ['name', 'inventory_level', 'date', 'actions'];
     }
-    AvailabilityTableComponent.prototype.ngOnChanges = function () {
-        console.log(this.availabilities);
-    };
     AvailabilityTableComponent.prototype.openDialog = function (availability) {
         var _this = this;
         var dialogRef = this.dialog.open(availability_dialog_component_1.AvailabilityDialogComponent, {
@@ -387,6 +406,8 @@ var AvailabilityTableComponent = /** @class */ (function () {
             data: { name: availability.productName, inventoryLevel: availability.inventoryLevel, date: availability.date }
         });
         dialogRef.afterClosed().subscribe(function (result) {
+            if (!result)
+                return;
             availability.inventoryLevel = parseInt(result);
             _this.availabilityUpdated.emit(availability);
         });

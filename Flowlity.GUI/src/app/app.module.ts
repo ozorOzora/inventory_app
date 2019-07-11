@@ -10,7 +10,7 @@ import { ProductSelectorComponent } from './components/product-selector/product-
 import { AvailabilityTableComponent } from './components/availability-table/availability-table.component';
 import { AvailabilityChartComponent } from './components/availability-chart/availability-chart.component';
 import { AvailabilityDialogComponent } from './components/availability-dialog/availability-dialog.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -24,6 +24,7 @@ import { FormsModule } from '@angular/forms';
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
         MatButtonModule,
         MatDialogModule,

@@ -17,16 +17,14 @@ export class AvailabilityTableComponent {
         public dialog: MatDialog
     ) { }
 
-    ngOnChanges() {
-        console.log(this.availabilities);
-    }
-
     openDialog(availability: Availability) {
         const dialogRef = this.dialog.open(AvailabilityDialogComponent, {
             width: '380px',
             data: { name: availability.productName, inventoryLevel: availability.inventoryLevel, date: availability.date }
         });
         dialogRef.afterClosed().subscribe(result => {
+            if (!result) return;
+
             availability.inventoryLevel = parseInt(result);
             this.availabilityUpdated.emit(availability);
         });

@@ -8,7 +8,13 @@ var express_validator_1 = require("express-validator");
 var router = express.Router();
 module.exports = function (manager) {
     router.get('/:productId', function (req, res) {
-        res.send(manager.findAll(parseInt(req.params.productId)));
+        try {
+            var availibilities = manager.findAll(parseInt(req.params.productId));
+            res.status(200).send(availibilities);
+        }
+        catch (err) {
+            res.status(err.statusCode).json(err);
+        }
     });
     router.put('/', [
         express_validator_1.check('inventoryLevel').isInt().withMessage('must be an int')
