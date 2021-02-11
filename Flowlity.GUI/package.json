@@ -27,7 +27,7 @@
     "@angular/platform-browser": "~8.1.0",
     "@angular/platform-browser-dynamic": "~8.1.0",
     "@angular/router": "~8.1.0",
-    "apexcharts": "^3.8.1",
+    "apexcharts": "^3.24.0",
     "debug": "^2.2.0",
     "express": "^4.14.0",
     "lokijs": "^1.5.6",
